@@ -1,11 +1,16 @@
 'use strict'
 
 require('dotenv').config();
+const Static = require('fastify-static');
 const path = require('path')
 const AutoLoad = require('fastify-autoload')
 
 module.exports = function (fastify, opts, next) {
   // Place here your custom code!
+  fastify.register(Static, {
+    root: path.join(__dirname, 'public'),
+    prefix: '/public' // optional: default '/'
+  })
 
   // Do not touch the following lines
 
@@ -28,36 +33,36 @@ module.exports = function (fastify, opts, next) {
   next()
 }
 
-// const nodeshout = require('nodeshout');
-// const FileReadStream = nodeshout.FileReadStream;
-// const ShoutStream = nodeshout.ShoutStream;
+const nodeshout = require('nodeshout');
+const FileReadStream = nodeshout.FileReadStream;
+const ShoutStream = nodeshout.ShoutStream;
 
-// nodeshout.init();
+nodeshout.init();
 
-// console.log('Libshout version: ' + nodeshout.getVersion());
+console.log('Libshout version: ' + nodeshout.getVersion());
 
-// // Create instance and configure it.
-// const shout = nodeshout.create();
-// shout.setHost('localhost');
-// shout.setPort(8000);
-// shout.setUser('source');
-// shout.setPassword(process.env.ICECAST_SOURCE_PASSWORD);
-// shout.setMount('radio.ogg');
-// shout.setFormat(0); // 0=ogg, 1=mp3
-// shout.setAudioInfo('bitrate', '192');
-// shout.setAudioInfo('samplerate', '44100');
-// shout.setAudioInfo('channels', '2');
+// Create instance and configure it.
+const shout = nodeshout.create();
+shout.setHost('localhost');
+shout.setPort(8000);
+shout.setUser('source');
+shout.setPassword(process.env.ICECAST_SOURCE_PASSWORD);
+shout.setMount('radio.ogg');
+shout.setFormat(0); // 0=ogg, 1=mp3
+shout.setAudioInfo('bitrate', '192');
+shout.setAudioInfo('samplerate', '44100');
+shout.setAudioInfo('channels', '2');
 
-// shout.open();
+shout.open();
 
-// // Create file read stream and shout stream
-// const fileStream = new FileReadStream('./music/test.ogg', 65536);
-// const shoutStream = fileStream.pipe(new ShoutStream(shout));
+// Create file read stream and shout stream
+const fileStream = new FileReadStream('./music/test.ogg', 65536);
+const shoutStream = fileStream.pipe(new ShoutStream(shout));
 
-// fileStream.on('data', function(chunk) {
-//     console.log('Read %d bytes of data', chunk.length);
-// });
+fileStream.on('data', function(chunk) {
+    console.log('Read %d bytes of data', chunk.length);
+});
 
-// shoutStream.on('finish', function() {
-//     console.log('Finished playing...');
-// })
+shoutStream.on('finish', function() {
+    console.log('Finished playing...');
+})

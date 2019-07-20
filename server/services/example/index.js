@@ -1,6 +1,7 @@
 'use strict'
 
 const icy = require('icy');
+const prism = require('prism-media');
 
 module.exports = function (fastify, opts, next) {
   fastify.get('/audio', function (request, reply) {
