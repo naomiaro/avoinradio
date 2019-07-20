@@ -1,6 +1,7 @@
 # avoinradio
 
 `brew install icecast`
+`brew install libshout`
 
 http://icecast.org/docs/
 
