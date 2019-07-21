@@ -21,10 +21,11 @@
     "fastify-cli": "^1.1.0",
     "fastify-plugin": "^1.5.0",
     "fastify-static": "^2.5.0",
-    "ffmpeg-static": "^2.5.0",
     "icy": "^2.1.0",
     "node-opus": "^0.3.2",
-    "prism-media": "^1.0.2"
+    "ogg": "^1.2.6",
+    "prism-media": "^1.0.2",
+    "speaker": "^0.4.2"
   },
   "devDependencies": {
     "tap": "^12.5.3"
