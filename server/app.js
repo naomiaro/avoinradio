@@ -2,11 +2,13 @@
 
 require('dotenv').config();
 const Static = require('fastify-static');
-const path = require('path')
-const AutoLoad = require('fastify-autoload')
+const path = require('path');
+const AutoLoad = require('fastify-autoload');
+const formbody = require('fastify-formbody');
 
 module.exports = function (fastify, opts, next) {
   // Place here your custom code!
+  fastify.register(formbody);
   fastify.register(Static, {
     root: path.join(__dirname, 'public'),
     prefix: '/public' // optional: default '/'
