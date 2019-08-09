@@ -1,14 +1,10 @@
 #!/Users/naaro/.opam/4.08.0/bin/liquidsoap -v
 
-# Set 480p resolution @ 24fps
-set("frame.video.width", 848)
-set("frame.video.height", 480)
-set("frame.video.samplerate", 24)
+%include "base.liq"
 
-output.icecast = output.icecast(
-  host="localhost",
-  port=8000,
-  password="hackme")
+set("frame.video.width", 768)
+set("frame.video.height", 1008)
+set("frame.video.samplerate", 12)
 
 # def images
 #   video.fade.in(duration=1.,video.fade.out(duration=1.,
@@ -25,13 +21,10 @@ def sound
   audio_to_stereo(playlist("music.txt"))
 end
 
-#output.ao(fallible=true,sound)
-#clock(id="video", output.gstreamer.video(images))
-#s = mux_video(video=images,sound)
-#output.gstreamer.audio_video(fallible=true, s)
-
 v = mksafe(mux_video(video=images,sound))
-# GStreamer outputs require this so that Liquidsoap doesn't handle syncing, but rather GStreamer itself
-#clock.assign_new(sync=false,[v])
 
-output.icecast(%ogg(%theora(quality=20,width=848,height=480),%vorbis), format="video/ogg", icy_metadata="false", mount="/slideshow.ogg", v)
+output.icecast(%ogg(%theora(quality=20,width=768,height=1008),%vorbis),
+  format="video/ogg",
+  icy_metadata="false",
+  mount="/slideshow.ogg",
+  v)
