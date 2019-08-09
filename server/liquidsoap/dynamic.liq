@@ -1,12 +1,6 @@
 #!/Users/naaro/.opam/4.08.0/bin/liquidsoap -v
 
-set("log.file",false)
-set("log.stdout",true)
-set("log.level",3)
-
-%include "library.liq"
-
-set("server.telnet",true)
+%include "base.liq"
 
 # Our custom request function
 def get_request() = 

@@ -1,14 +1,11 @@
 #!/Users/naaro/.opam/4.08.0/bin/liquidsoap -v
 
+%include "base.liq"
+
 # Set 480p resolution @ 24fps
 set("frame.video.width", 848)
 set("frame.video.height", 480)
 set("frame.video.samplerate", 24)
-
-output.icecast = output.icecast(
-  host="localhost",
-  port=8000,
-  password="hackme")
 
 v = single("forest.mp4")
 
