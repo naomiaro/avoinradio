@@ -24,8 +24,11 @@ def add_skip_command(s) =
   "skip", skip)
 end
 
+icecast_host = getenv("ICECAST_HOST")
+icecast_port = int_of_string(getenv("ICECAST_PORT"))
+icecast_password = getenv("ICECAST_SOURCE_PASSWORD")
 
 output.icecast = output.icecast(
-  host="localhost",
-  port=8000,
-  password="hackme")
+  host=icecast_host,
+  port=icecast_port,
+  password=icecast_password)

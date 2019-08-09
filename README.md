@@ -53,3 +53,4 @@ you should need either gd or gstreamer or sdl
 
 gst-launch-1.0 playbin uri=file:///path/to/file.mp4
 
+export $(grep -v '^#' .env | xargs -0)
