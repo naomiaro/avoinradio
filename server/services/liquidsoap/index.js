@@ -1,45 +1,35 @@
-'use strict'
+"use strict";
 
-const Telnet = require('telnet-client');
+const Telnet = require("telnet-client");
 
 const params = {
-  host: '127.0.0.1',
-  port: 1234,
+  host: process.env.TELNET_HOST,
+  port: process.env.TELNET_PORT,
   stripShellPrompt: false,
-  shellPrompt: '',
-  loginPrompt: '', 
-  passwordPrompt: '',
-  username: '',
-  password: '',
-  debug: true,
+  shellPrompt: "",
+  loginPrompt: "",
+  passwordPrompt: "",
+  username: "",
+  password: "",
   initialLFCR: true,
   negotiationMandatory: false,
   timeout: 1500
 };
 
-async function run(cmd, args) {
-  let connection = new Telnet();
-
-  try {
-    await connection.connect(params);
-    return connection.exec(cmd);
-  } catch(err) {
-    throw err;
-  }
-}
-
-module.exports = async function (fastify, opts) {
-  fastify.post('/telnet', async function (request, reply) {
-    console.log(request.body)
+module.exports = async function(fastify, opts) {
+  fastify.post("/telnet", async function(request, reply) {
+    const connection = new Telnet();
     const cmd = request.body.cmd;
 
     try {
-      const result = await run(cmd);
-      console.log(result);
-    } catch (err) {
-      console.log(err)
+      await connection.connect(params);
+    } catch (error) {
+      return { error };
     }
 
-    return {}
-  })
-}
+    const res = await connection.exec(cmd, {
+      echoLines: 0
+    });
+    return { res };
+  });
+};
