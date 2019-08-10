@@ -1,2 +1,3 @@
-music/test.ogg
-music/test.mp3
+~/Music/Drink.mp3
+~/Music/Outside.mp3
+~/Music/Legend.mp3

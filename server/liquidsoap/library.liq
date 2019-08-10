@@ -4,7 +4,16 @@
 def apply_metadata(m) =
   title = m["title"]
   artist = m["artist"]
-  print("Now playing: #{title} by #{artist}")
+  print("Received metadata: #{title} by #{artist}")
+end
+
+# This function is called when
+# a new track starts in the main streaming thread
+def apply_track_change(m) =
+  title = m["title"]
+  artist = m["artist"]
+  broadcast = m["on_air"]
+  print("Now playing: #{title} by #{artist} at #{broadcast}")
 end
 
 # Add a skip function to a source
