@@ -14,10 +14,12 @@ def sound
   audio_to_stereo(playlist("music.txt"))
 end
 
-s = on_metadata(apply_metadata, sound)
+s = map_metadata(map_audio_metadata, sound)
+s = on_metadata(apply_metadata, s)
 s = on_track(apply_track_change, s)
 
-p = on_metadata(apply_metadata, images)
+p = map_metadata(map_image_metadata, images)
+p = on_metadata(apply_metadata, p)
 p = on_track(apply_track_change, p)
 
 v = mksafe(mux_video(video=p, s))
@@ -28,6 +30,34 @@ v = video.add_image(
        y=0,
        file="mural_logo.jpg",
        v)
+
+# Add image credits
+# https://www.shodor.org/stella2java/rgbint.html
+v = video.add_text.gstreamer(
+  x=0,
+  y=-60,
+  color=16777215,
+  size=24,
+  speed=0,
+  cycle=false,
+  font="josefin-sans/JosefinSans-Bold.ttf",
+  metadata="image_credit",
+  "",
+  v)
+
+# Add audio credits
+# https://www.shodor.org/stella2java/rgbint.html
+v = video.add_text.gstreamer(
+  x=0,
+  y=-20,
+  color=16777215,
+  size=18,
+  speed=0,
+  cycle=false,
+  font="josefin-sans/JosefinSans-Regular.ttf",
+  metadata="audio_credit",
+  "",
+  v)
 
 v = drop_metadata(v)
 v = merge_tracks(v)

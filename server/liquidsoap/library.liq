@@ -1,3 +1,18 @@
+
+def map_image_metadata(m) =
+  title = m["title"]
+  artist = m["artist"]
+
+  [("image_credit","Photo credits: #{title}, by #{artist}")]
+end
+
+def map_audio_metadata(m) =
+  title = m["title"]
+  artist = m["artist"]
+
+  [("audio_credit","Currently listening to: #{title}, by #{artist}")]
+end
+
 # This function is called when
 # a new metadata block is passed in
 # the stream.
